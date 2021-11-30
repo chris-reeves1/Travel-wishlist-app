@@ -1,6 +1,7 @@
 from application import app, db
 from application.models import Country, Rating
-from flask import render_template
+from application.forms import CountryForm
+from flask import render_template, request, redirect, url_for
 
 @app.route('/')
 @app.route('/home')
@@ -9,12 +10,17 @@ def home():
     return render_template('index.html', title="Home", all_countries=all_countries)
 
 
-@app.route('/create/country')
-def create_place():
-    new_country = Country(country_name="New Country")
-    db.session.add(new_country)
-    db.session.commit()
-    return f"Added new country with id: {new_country.id} to database"
+@app.route('/create/country', methods=['GET', 'POST'])
+def create_country():
+    form = CountryForm()
+
+    if request.method == "POST":
+        new_country = Country(country_name=form.country_name.data)
+        db.session.add(new_country)
+        db.session.commit()
+        return redirect(url_for('home'))
+
+    return render_template("create_country.html", title="Add country to Wishlist", form=form)
 
 @app.route('/read/allCountries')
 def read_countries():
