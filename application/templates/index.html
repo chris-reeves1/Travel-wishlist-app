@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    {% for country in all_countries %}
+        <p>
+            Country ID: {{ country.id }}<br>
+            Country Name: {{ country.country_name }}<br>
+            {% if country.visited == True %}
+            Visited
+            {% else %}
+            Unvisited
+            {% endif %} <br>
+            {% if country.recommend == True %}
+            Recommended
+            {% else %}
+            Not yet recommended
+            {% endif %}
+
+            
+        <p>
+
+        {% endfor %}
+
+{% endblock body %}
