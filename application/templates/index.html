@@ -1,24 +1,27 @@
 {% extends "layout.html" %}
 {% block body %}
 
+    <h2>Wishlist</h2>
     {% for country in all_countries %}
+    {% if country.visited == False %}
         <p>
-            Country ID: {{ country.id }}<br>
-            Country Name: {{ country.country_name }}<br>
-            {% if country.visited == True %}
-            Visited
-            {% else %}
-            Unvisited
-            {% endif %} <br>
-            {% if country.recommend == True %}
-            Recommended
-            {% else %}
-            Not yet recommended
-            {% endif %}
-
-            
+        Country ID: {{ country.id }}<br>
+        Country Name: {{ country.country_name }}<br>
         <p>
+    {% endif %}
+    {% endfor %}
 
-        {% endfor %}
+    <h2>Visited</h2>
+    {% for country in all_countries %}
+    {% if country.visited == True %}
+        <p>
+        Country ID: {{ country.id }}<br>
+        Country Name: {{ country.country_name }}<br>
+        {% endif %}
+        {% if country.recommend == True %}
+        Recommended
+        <p>
+    {% endif %}
+    {% endfor %}
 
 {% endblock body %}
