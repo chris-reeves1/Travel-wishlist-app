@@ -8,8 +8,8 @@
         Country ID: {{ country.id }}<br>
         Country Name: {{ country.country_name }}<br>
         <a href="{{ url_for('update_country', id=country.id) }}">Edit</a>
-        <!-- <a href="{{ url_for('delete_country', id=country.id) }}">Delete</a>
-        <a href="{{ url_for('visited_country', id=country.id) }}">Visited</a> -->
+        <a href="{{ url_for('delete_country', id=country.id) }}">Delete</a>
+        <a href="{{ url_for('visited_country', id=country.id) }}">Visited</a>
         <p>
     {% endif %}
     {% endfor %}
@@ -21,9 +21,9 @@
         Country ID: {{ country.id }}<br>
         Country Name: {{ country.country_name }}<br>
         <a href="{{ url_for('update_country', id=country.id) }}">Edit</a>
-        <!-- <a href="{{ url_for('delete_country', id=country.id) }}">Delete</a>
-            <a href="{{ url_for('unvisited_country', id=country.id) }}">Unvisited</a> --> 
-            <p>
+        <a href="{{ url_for('delete_country', id=country.id) }}">Delete</a>
+        <a href="{{ url_for('unvisited_country', id=country.id) }}">Unvisited</a>
+        <p>
     {% endif %}
     {% endfor %}
 

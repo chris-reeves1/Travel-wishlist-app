@@ -61,18 +61,18 @@ def delete_country(id):
     country = Country.query.get(id)
     db.session.delete(country)
     db.session.commit()
-    return f"Country with id: {id} deleted"
+    return redirect(url_for('home'))
 
 @app.route('/visited/country/<int:id>')
 def visited_country(id):
     country = Country.query.get(id)
     country.visited = True
     db.session.commit()
-    return f"Country with id: {id} has been visited"
+    return redirect(url_for('home'))
 
 @app.route('/unvisited/country/<int:id>')
 def unvisited_country(id):
     country = Country.query.get(id)
     country.visited = False
     db.session.commit()
-    return f"country with id: {id} is unvisited"
+    return redirect(url_for('home'))
