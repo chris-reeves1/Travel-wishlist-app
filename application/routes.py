@@ -37,12 +37,12 @@ def read_countries():
         )
     return country_dict
 
-@app.route('/recommend/<int:id>')
-def recommend_country(id):
-    country = Country.query.get(id)
-    country.recommend = True
-    db.session.commit()
-    return f"Place with id: {id} now recommended"
+# @app.route('/recommend/<int:id>')
+# def recommend_country(id):
+#     country = Country.query.get(id)
+#     country.recommend = True
+#     db.session.commit()
+#     return f"Place with id: {id} now recommended"
 
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update_country(id):
