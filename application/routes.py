@@ -1,51 +1,78 @@
 from application import app, db
-from application.models import Travel_wishlist
+from application.models import Country, Rating
+from application.forms import CountryForm
+from flask import render_template, request, redirect, url_for
 
-@app.route('/create/place')
-def create_place():
-    new_place = Travel_wishlist(destination_name="New Place")
-    db.session.add(new_place)
-    db.session.commit()
-    return f"Added new place with id: {new_place.id} to database"
+@app.route('/')
+@app.route('/home')
+def home():
+    all_countries = Country.query.all()
+    return render_template('index.html', title="Home", all_countries=all_countries)
 
-@app.route('/read/allPlaces')
-def read_places():
-    all_places = Travel_wishlist.query.all()
-    places_dict = {"places": []}
-    for place in all_places:
-        places_dict["places"].append(
+
+@app.route('/create/country', methods=['GET', 'POST'])
+def create_country():
+    form = CountryForm()
+
+    if request.method == "POST":
+        new_country = Country(country_name=form.country_name.data)
+        db.session.add(new_country)
+        db.session.commit()
+        return redirect(url_for('home'))
+
+    return render_template("create_country.html", title="Add country to Wishlist", form=form)
+
+@app.route('/read/allCountries')
+def read_countries():
+    all_countries = Country.query.all()
+    country_dict = {"country": []}
+    for country in all_countries:
+        country_dict["country"].append(
             {    
-                "id": place.id,
-                "destinaton": place.destination_name,
-                "visited" : place.visited
+                "id": country.id,
+                "country": country.country_name,
+                "visited" : country.visited,
+                "Recommend" : country.recommend
             }    
         )
-    return places_dict
+    return country_dict
 
-@app.route('/update/place/<int:id>/<new_place>')
-def update_place(id, new_place):
-    place = Travel_wishlist.query.get(id)
-    place.destination_name = new_place
-    db.session.commit()
-    return f"Place with id: {id} updated to {new_place}"
+# @app.route('/recommend/<int:id>')
+# def recommend_country(id):
+#     country = Country.query.get(id)
+#     country.recommend = True
+#     db.session.commit()
+#     return f"Place with id: {id} now recommended"
 
-@app.route('/delete/place/<int:id>')
-def delete_place(id):
-    place = Travel_wishlist.query.get(id)
-    db.session.delete(place)
-    db.session.commit()
-    return f"Place with id: {id} deleted"
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update_country(id):
+    form = CountryForm()
+    country = Country.query.get(id)
 
-@app.route('/visited/place/<int:id>')
-def visited_place(id):
-    place = Travel_wishlist.query.get(id)
-    place.visited = True
-    db.session.commit()
-    return f"Place with id: {id} has been visited"
+    if request.method == "POST":
+        country.country_name = form.country_name.data
+        db.session.commit()
+        return redirect(url_for('home'))
 
-@app.route('/unvisited/place/<int:id>')
-def unvisited_place(id):
-    place = Travel_wishlist.query.get(id)
-    place.visited = False
+    return render_template('update_country.html', title="Rename a Country", country=country, form=form)
+
+@app.route('/delete/country/<int:id>')
+def delete_country(id):
+    country = Country.query.get(id)
+    db.session.delete(country)
     db.session.commit()
-    return f"Place with id: {id} is unvisited"
+    return redirect(url_for('home'))
+
+@app.route('/visited/country/<int:id>')
+def visited_country(id):
+    country = Country.query.get(id)
+    country.visited = True
+    db.session.commit()
+    return redirect(url_for('home'))
+
+@app.route('/unvisited/country/<int:id>')
+def unvisited_country(id):
+    country = Country.query.get(id)
+    country.visited = False
+    db.session.commit()
+    return redirect(url_for('home'))

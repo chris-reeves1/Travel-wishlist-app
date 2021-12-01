@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <h2>Wishlist</h2>
+    {% for country in all_countries %}
+    {% if country.visited == False %}
+        <p>
+        Country ID: {{ country.id }}<br>
+        Country Name: {{ country.country_name }}<br>
+        <a href="{{ url_for('update_country', id=country.id) }}">Edit</a>
+        <a href="{{ url_for('delete_country', id=country.id) }}">Delete</a>
+        <a href="{{ url_for('visited_country', id=country.id) }}">Visited</a>
+        <p>
+    {% endif %}
+    {% endfor %}
+
+    <h2>Visited</h2>
+    {% for country in all_countries %}
+    {% if country.visited == True %}
+        <p>
+        Country ID: {{ country.id }}<br>
+        Country Name: {{ country.country_name }}<br>
+        <a href="{{ url_for('update_country', id=country.id) }}">Edit</a>
+        <a href="{{ url_for('delete_country', id=country.id) }}">Delete</a>
+        <a href="{{ url_for('unvisited_country', id=country.id) }}">Unvisited</a>
+        <p>
+    {% endif %}
+    {% endfor %}
+
+{% endblock body %}
