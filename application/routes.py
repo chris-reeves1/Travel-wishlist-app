@@ -44,12 +44,17 @@ def recommend_country(id):
     db.session.commit()
     return f"Place with id: {id} now recommended"
 
-@app.route('/update/<int:id>/<new_country>')
-def update_country(id, new_country):
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update_country(id):
+    form = CountryForm()
     country = Country.query.get(id)
-    country.country_name = new_country
-    db.session.commit()
-    return f"Country with id: {id} updated to {new_country}"
+
+    if request.method == "POST":
+        country.country_name = form.country_name.data
+        db.session.commit()
+        return redirect(url_for('home'))
+
+    return render_template('update_country.html', title="Rename a Country", country=country, form=form)
 
 @app.route('/delete/country/<int:id>')
 def delete_country(id):

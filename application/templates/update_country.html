@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+<p>
+    <b>Current country name:</b> {{ country.country_name}}
+<p>
+
+<div class='form'>
+    <form method='POST' action=''>
+        {{ form.hidden_tag() }}
+        {{ form.country_name.label }} {{ form.country_name }}<br>
+        {{ form.submit }}<br>
+    </form>
+</div>
+{% endblock %}
