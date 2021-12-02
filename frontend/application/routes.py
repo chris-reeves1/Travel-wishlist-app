@@ -27,7 +27,7 @@ def create_country():
 @app.route('/update/country/<int:id>', methods=['GET','POST'])
 def update_country(id):
     form = CountryForm()
-    country = requests.get(f"http://{backend_host}/update/country/{id}").json()
+    country = requests.get(f"http://{backend_host}/read/country/{id}").json()
     app.logger.info(f"Country: {country}")
 
     if request.method == "POST":
