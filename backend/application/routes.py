@@ -1,5 +1,5 @@
 from application import app, db
-from application.models import Country, Rating
+from application.models import Country
 from flask import render_template, request, redirect, url_for, Response, jsonify
 
 @app.route('/create/country', methods=['POST'])
@@ -24,18 +24,20 @@ def read_countries():
         )
     return jsonify(country_dict)
 
-# @app.route('/recommend/<int:id>')
-# def recommend_country(id):
-#     country = Country.query.get(id)
-#     country.recommend = True
-#     db.session.commit()
-#     return f"Place with id: {id} now recommended"
+@app.route('/read/country/<int:id>', methods=['GET'])
+def read_country(id):
+    country = Country.query.get(id)
+    country_dict = {
+                    "id": country.id,
+                    "country_name": country.country_name,
+                    "visited": country.visited,
+                }
+    return jsonify(country_dict)
 
-@app.route('/update/<int:id>', methods=['PUT'])
+@app.route('/update/country/<int:id>', methods=['PUT'])
 def update_country(id):
     package = request.json
     country = Country.query.get(id)
-
     country.country_name = package["country_name"]
     db.session.commit()
     return Response(f"Updated country (ID: {id}) to {country.country_name}", mimetype='text/plain')

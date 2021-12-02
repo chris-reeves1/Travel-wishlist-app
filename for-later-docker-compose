@@ -2,15 +2,15 @@ version: "3.8"
 services:
   frontend:
     build: ./frontend
-    image: wishlist-app_frontend:latest
-    container_name: wishlist-app_frontend
+    image: ${DOCKER_HUB_CREDS_USR}/wishlist-app-frontend:latest
+    container_name: wishlist-app-frontend
     ports:
     - target: 5000
       published: 80
   backend:
     build: ./backend
-    image: wishlist-app_backend:latest
-    container_name: wishlist-app_backend
+    image: ${DOCKER_HUB_CREDS_USR}/wishlist-app-backend:latest
+    container_name: wishlist-app-backend
     environment:
       DATABASE_URI:
       CREATE_SCHEMA:
