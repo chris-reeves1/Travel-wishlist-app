@@ -5,7 +5,7 @@
     {% for country in all_countries %}
     {% if country["visited"] == False %}
         <p>
-            {# <!-- Country ID: {{ country["id"] }}<br> --> #}
+            Country ID: {{ country["id"] }}<br>
             Country Name: {{ country["country"] }}<br>
             <a href="{{ url_for('update_country', id=country.id) }}">Edit</a>
             <a href="{{ url_for('delete_country', id=country.id) }}">Delete</a>
@@ -18,7 +18,7 @@
     {% for country in all_countries %}
     {% if country.visited == True %}
         <p>
-       {# <!-- Country ID: {{ country.id }}<br> --> #}
+        Country ID: {{ country.id }}<br>
         Country Name: {{ country.country }}<br>
         <a href="{{ url_for('update_country', id=country.id) }}">Edit</a>
         <a href="{{ url_for('delete_country', id=country.id) }}">Delete</a>
