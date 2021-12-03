@@ -63,7 +63,7 @@ class TestCreate(TestBase):
                 ] 
             }
             m.post(f"http://{backend_host}/create/country", text="Test response")
-            m.get(f"http://{backend_host}/read/allCountries", json=all_counties)
+            m.get(f"http://{backend_host}/read/allCountries", json=all_countries)
             response = self.client.post(
                 url_for('create_country'),
                 json={"country_name": "Testing create functionality"},
