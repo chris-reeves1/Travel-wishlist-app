@@ -44,6 +44,8 @@ The jenkins build stages are detailed below:
 
 I used Jira for project tracking as detailed below:
 
+<img width="1030" alt="Screenshot 2021-11-30 at 10 45 23" src="https://user-images.githubusercontent.com/91483522/144625917-d0142fb5-e1dc-402e-8328-869bd75c57c0.png">
+
 # Risk assessment
 
 My risk assessment is detailed below:
