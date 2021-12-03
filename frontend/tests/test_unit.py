@@ -96,7 +96,7 @@ class TestUpdate(TestBase):
     
     def test_unvisited_country(self):
         with requests_mock.Mocker() as m:
-            m.put(f"http://{backend_host}/unvisited_country/1")
+            m.put(f"http://{backend_host}/unvisited/country/1")
             test_country["visited"] = False
             m.get(f"http://{backend_host}/read/allCountries", json={ "country": [test_country] })
             response = self.client.get(url_for('unvisited_country', id=1), follow_redirects=True)
