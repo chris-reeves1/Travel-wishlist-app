@@ -35,7 +35,7 @@ class TestViews(TestBase):
 
     def test_update_country_get(self):
         with requests_mock.Mocker() as m:
-            m.get(f"http://{backend_host}/read/country/1", json=test_task)
+            m.get(f"http://{backend_host}/read/country/1", json=test_country)
             response = self.client.get(url_for('update_country', id=1))
             self.assert200(response)
 
