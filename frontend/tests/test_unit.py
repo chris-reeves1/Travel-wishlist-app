@@ -6,7 +6,7 @@ import requests_mock
 
 test_country = {
                 "id": 1,
-                "country_name": "test country",
+                "country_name": "Test the frontend",
                 "visited": False
             }
 
