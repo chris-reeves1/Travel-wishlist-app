@@ -25,7 +25,7 @@ class TestViews(TestBase):
     def test_home_get(self):
         with requests_mock.Mocker() as m:
             all_countries = { "country": [test_country] }
-            m.get(f"http://{backend_host}/read/allCountries", json=all_tasks)
+            m.get(f"http://{backend_host}/read/allCountries", json=all_countries)
             response = self.client.get(url_for('home'))
             self.assert200(response)
     
@@ -44,7 +44,7 @@ class TestRead(TestBase):
     def test_read_home_countries(self):
         with requests_mock.Mocker() as m:
             all_countries = { "country": [test_country] }
-            m.get(f"http://{backend_host}/read/allCountries", json=all_tasks)
+            m.get(f"http://{backend_host}/read/allCountries", json=all_countries)
             response = self.client.get(url_for('home'))
             self.assertIn(b"Test the frontend", response.data)
 
@@ -63,7 +63,7 @@ class TestCreate(TestBase):
                 ] 
             }
             m.post(f"http://{backend_host}/create/country", text="Test response")
-            m.get(f"http://{backend_host}/read/allCountries", json=all_tasks)
+            m.get(f"http://{backend_host}/read/allCountries", json=all_counties)
             response = self.client.post(
                 url_for('create_country'),
                 json={"country_name": "Testing create functionality"},
@@ -75,7 +75,7 @@ class TestUpdate(TestBase):
 
     def test_update_country(self):
         with requests_mock.Mocker() as m:
-            m.get(f"http://{backend_host}/read/country/1", json=test_task)
+            m.get(f"http://{backend_host}/read/country/1", json=test_country)
             m.put(f"http://{backend_host}/update/country/1", text="Test response")
             test_country["country_name"] = "Testing update functionality"
             m.get(f"http://{backend_host}/read/allCountries", json={ "country": [test_country] })
